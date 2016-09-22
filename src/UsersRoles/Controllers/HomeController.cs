@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using UsersRoles.Models;
 using UsersRoles.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace UsersRoles.Controllers
 {
@@ -36,7 +36,7 @@ namespace UsersRoles.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            var newUser = new User { UserName = model.Username };
+            var newUser = new User { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Username };
             IdentityResult registeredUser = await _userManager.CreateAsync(newUser, model.Password);
             if (registeredUser.Succeeded)
             {
@@ -60,7 +60,7 @@ namespace UsersRoles.Controllers
             Microsoft.AspNetCore.Identity.SignInResult signInResult = await _signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: true, lockoutOnFailure: false);
             if (signInResult.Succeeded)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "User");
             }
             else
             {

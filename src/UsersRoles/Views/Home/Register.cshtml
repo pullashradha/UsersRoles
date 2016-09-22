@@ -10,6 +10,12 @@
 
 @using (Html.BeginForm("Register", "Home", FormMethod.Post))
 {
+    @Html.LabelFor(m => m.FirstName)
+    @Html.TextBoxFor(m => m.FirstName)
+
+    @Html.LabelFor(m => m.LastName)
+    @Html.TextBoxFor(m => m.LastName)
+
     @Html.LabelFor(m => m.Username)
     @Html.TextBoxFor(m => m.Username)
 
