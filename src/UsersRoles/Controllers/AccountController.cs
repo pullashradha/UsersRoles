@@ -28,11 +28,6 @@ namespace UsersRoles.Controllers
         }
 
         //Register New Account
-        public IActionResult Register()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -48,12 +43,12 @@ namespace UsersRoles.Controllers
             }
         }
 
-        //Log In User
-        public IActionResult Login()
+        public IActionResult Register()
         {
             return View();
         }
 
+        //Log In User
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -66,6 +61,11 @@ namespace UsersRoles.Controllers
             {
                 return View();
             }
+        }
+
+        public IActionResult Login()
+        {
+            return View();
         }
 
         //Log Out User

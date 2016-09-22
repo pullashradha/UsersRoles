@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole>
-
-@{ 
+﻿@{ 
     ViewData["Title"] = "Index";
 }
 
@@ -10,7 +8,7 @@
         <script>
             $(document).ready(function () {
                 $("#display-create-view").click(function () {
-                    $.ajax({
+                    $.ajax ({
                         type: "GET",
                         dataType: "html",
                         url: '@Url.Action("Create")',
