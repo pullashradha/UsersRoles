@@ -188,4 +188,5 @@
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Models\ApplicationDbContext.cs"
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Models\Role.cs"
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Models\User.cs"
+"C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\ViewModels\LoginViewModel.cs"
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\ViewModels\RegisterViewModel.cs"

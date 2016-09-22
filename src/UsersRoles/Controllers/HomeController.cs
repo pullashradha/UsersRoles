@@ -13,10 +13,12 @@ namespace UsersRoles.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public HomeController(UserManager<User> userManager, ApplicationDbContext db)
+        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext db)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _db = db;
         }
 
@@ -44,6 +46,34 @@ namespace UsersRoles.Controllers
             {
                 return View();
             }
+        }
+
+        //Log In User
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            Microsoft.AspNetCore.Identity.SignInResult signInResult = await _signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: true, lockoutOnFailure: false);
+            if (signInResult.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        //Log Out User
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
         }
     }
 }
