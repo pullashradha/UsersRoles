@@ -5,7 +5,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <h2>Welcome @(ViewData["FullName"])!</h2>
-    @using (Html.BeginForm("LogOut", "Home"))
+    @using (Html.BeginForm("LogOut", "Account"))
     {
         <input type="submit" value="Log Out" />
     }
