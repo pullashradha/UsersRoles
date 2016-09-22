@@ -189,6 +189,7 @@
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Startup.cs"
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Controllers\AccountController.cs"
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Controllers\HomeController.cs"
+"C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Controllers\RoleController.cs"
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Controllers\UserController.cs"
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Migrations\20160922203819_InitialDB.cs"
 "C:\Users\epicodus\Desktop\UsersRoles\src\UsersRoles\Migrations\20160922203819_InitialDB.Designer.cs"
