@@ -10,18 +10,30 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script>
             $(document).ready(function () {
-                $("#new-role").hide();
+                $("#new-role-form").hide();
                 $("#display-role-form").click(function () {
-                    $("#new-role").show();
+                    $("#new-role-form").show();
                     $("#display-role-form").hide();
                 });
-                $("#new-role").submit(function (event) {
+                $("#new-role-form").submit(function (event) {
                     event.preventDefault();
                     $.ajax ({
                         type: "POST",
                         dataType: "html",
                         data: $(this).serialize(),
                         url: '@Url.Action("Create")',
+                        success: function (result) {
+                            location.reload();
+                        }
+                    });
+                });
+                $("#add-user-form").submit(function (event) {
+                    event.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        data: $(this).serialize(),
+                        url: '@Url.Action("AddUser")',
                         success: function (result) {
                             location.reload();
                         }
@@ -35,25 +47,47 @@
         <br />
         <hr />
 
-        <button id="display-role-form">Create a New Role</button>
+        <div>
+            <button id="display-role-form">Create a New Role</button>
 
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        <form action="Create" method="post" id="new-role">
-            <h2>Create Role</h2>
-            <label for="roleName">Role Name</label>
-            <input type="text" name="newName" />
-            <button type="submit">Save</button>
-        </form>
+            <form action="Create" method="post" id="new-role-form">
+                <h2>Create Role</h2>
+                <label for="roleName">Role Name</label>
+                <input type="text" name="newName" />
+                <button type="submit">Save</button>
+            </form>
+        </div>
         <br />
         <hr />
 
-        <h2>Roles List</h2>
-        <ul>
-            @foreach (var role in Model)
-            {
-                <li>@role.Name</li>
-            }
-        </ul>
+        <div>
+            <h2>Roles List</h2>
+            <ul>
+                @foreach (var role in Model)
+                {
+                    <li>@role.Name</li>
+                }
+            </ul>
+        </div>
+        <br />
+        <hr />
+
+        <div>
+            <h2>Add User to Role</h2>
+            <form action="AddUser" method="post" id="add-user-form">
+                <label>Username</label>
+                <input name="username" />
+                <label>Roles</label>
+                @Html.DropDownList("roleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select...")
+                <button type="submit">Save</button>
+            </form>
+        </div>
+        <br />
+        <hr />
+
+        <div>
+            <h2>All Users By Role</h2>
+            @(ViewBag.UserRoles)
+        </div>
     </body>
 </html>

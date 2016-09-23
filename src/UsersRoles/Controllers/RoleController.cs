@@ -28,6 +28,15 @@ namespace UsersRoles.Controllers
         public IActionResult Index()
         {
             var rolesList = _db.Roles.ToList();
+
+            var userRolesList = _db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+            ViewBag.Roles = userRolesList;
+
+            var usersByRole = _db.UserRoles;
+            ViewBag.UserRoles = usersByRole;
+
+            Console.WriteLine(usersByRole);
+
             return View(rolesList);
         }
 
@@ -44,6 +53,24 @@ namespace UsersRoles.Controllers
             }
             else
             {
+                return View();
+            }
+        }
+
+        //Add User to Role
+        [HttpPost]
+        public async Task<IActionResult> AddUser(string username, string roleName)
+        {
+            User user = _db.Users.Where(u => u.UserName.Equals(username, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            IdentityResult result = await _userManager.AddToRoleAsync(user, roleName);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var list = _db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+                ViewBag.Roles = list;
                 return View();
             }
         }
