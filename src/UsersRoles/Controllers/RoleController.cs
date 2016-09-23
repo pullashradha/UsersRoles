@@ -27,29 +27,25 @@ namespace UsersRoles.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var rolesList = _db.Roles.ToList();
+            return View(rolesList);
         }
 
         //Create a New Role
         [HttpPost]
-        public async Task<IActionResult> NewRole(string newName)
+        public async Task<IActionResult> Create(string newName)
         {
-            var newRole = new IdentityRole ();
+            var newRole = new IdentityRole();
             newRole.Name = newName;
             IdentityResult result = await _roleManager.CreateAsync(newRole);
             if (result.Succeeded)
             {
-                return Json(newRole);
+                return RedirectToAction("Index");
             }
             else
             {
                 return View();
             }
-        }
-
-        public IActionResult Create()
-        {
-            return View();
         }
     }
 }

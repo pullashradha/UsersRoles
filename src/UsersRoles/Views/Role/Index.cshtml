@@ -1,4 +1,7 @@
-﻿@{ 
+﻿@using UsersRoles.Models
+@model IEnumerable<Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole>
+
+@{ 
     ViewData["Title"] = "Index";
 }
 
@@ -7,14 +10,20 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script>
             $(document).ready(function () {
-                $("#display-create-view").click(function () {
+                $("#new-role").hide();
+                $("#display-role-form").click(function () {
+                    $("#new-role").show();
+                    $("#display-role-form").hide();
+                });
+                $("#new-role").submit(function (event) {
+                    event.preventDefault();
                     $.ajax ({
-                        type: "GET",
+                        type: "POST",
                         dataType: "html",
+                        data: $(this).serialize(),
                         url: '@Url.Action("Create")',
                         success: function (result) {
-                            $("#display-create-view").hide();
-                            $("#create-role-form").html(result);
+                            location.reload();
                         }
                     });
                 });
@@ -22,7 +31,29 @@
         </script>
     </head>
     <body>
-        <button id="display-create-view">Create a New Role</button>
-        <div id="create-role-form"></div>
+        <h1>Roles Manager</h1>
+        <br />
+        <hr />
+
+        <button id="display-role-form">Create a New Role</button>
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <form action="Create" method="post" id="new-role">
+            <h2>Create Role</h2>
+            <label for="roleName">Role Name</label>
+            <input type="text" name="newName" />
+            <button type="submit">Save</button>
+        </form>
+        <br />
+        <hr />
+
+        <h2>Roles List</h2>
+        <ul>
+            @foreach (var role in Model)
+            {
+                <li>@role.Name</li>
+            }
+        </ul>
     </body>
 </html>
